@@ -1,6 +1,6 @@
 let total = 0
 let itemArray = []
-let id = 1
+id = 1
 
 let enablePrice = document.getElementById('enablePrice')
 let priceDisplayClass =  document.getElementsByClassName('priceDisplay')
@@ -19,13 +19,17 @@ function resetInputs() {
 function priceDisplay() {
 
     if (!enablePrice.checked) {
+
         for(let num=0; num<priceDisplayClass.length; num++) {
+
             priceDisplayClass[num].style.display = 'none'
             document.getElementById('price').style.display = 'none'
         }
 
     } else {
+
         for(let num=0; num<priceDisplayClass.length; num++) {
+
             priceDisplayClass[num].style.display = 'block'
             document.getElementById('price').style.display = 'inline-block'
         }
@@ -33,42 +37,49 @@ function priceDisplay() {
 }
 
 function checkTableContent () {
+
     if (document.getElementsByTagName('tr').length == 1) {
+
         listEl.style.display = 'none'
         totalEl.innerHTML = ''
         itemArray = []
         total = 0
-        id = 1
     }
 }
 
 function addToList() {
 
     let item = {
+
         name: document.getElementById('item').value,
         quantity: parseInt(document.getElementById('quantity').value),
-        price: parseFloat(document.getElementById('price').value)
+        price: parseFloat(document.getElementById('price').value),
+        id: id
     }
 
     if (item.name.length == 0 || enablePrice.checked && isNaN(item.price) || isNaN(item.quantity)) {
+
         alert('Please, verify your inputs and try again.')
         return
     }
 
     for(num=0; num<itemArray.length; num++) {
+
         if (item.name == itemArray[num].name) {
+
             alert('The item already exists.')
             return
         }
     }
 
     if (!enablePrice.checked) {
+
         item.price = 0
     }
 
     itemArray.push(item)
 
-    listEl.innerHTML += `<tr class="listItem"><td>${item.name}</td><td class="priceDisplay">${item.price.toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</td><td>${item.quantity}</td><td class="priceDisplay">${(item.quantity*item.price).toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</td><td><input type="button" value="Delete" onclick="deleteItem(${id})"></td></tr>`
+    listEl.innerHTML += `<tr class="listItem" id="${id}"><td>${item.name}</td><td class="priceDisplay">${item.price.toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</td><td>${item.quantity}</td><td class="priceDisplay">${(item.quantity*item.price).toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</td><td><input type="button" value="Delete" onclick="deleteItem(${id})"></td></tr>`
 
     id++
 
@@ -82,6 +93,8 @@ function addToList() {
     resetInputs()
     priceDisplay()
 }
+
+
 
 function clearList() {
 
@@ -100,14 +113,16 @@ function deleteItem(id) {
 
     for (num=0; num<itemArray.length; num++) {
 
-        if (document.getElementsByTagName('tr')[id].getElementsByTagName('td')[0] == itemArray[num].name) {
+        if (document.getElementById(id).getElementsByTagName('td')[0].textContent == itemArray[num].name) {
+            
+            document.getElementById(id).remove()
+            total -= itemArray[num].price*itemArray[num].quantity
             itemArray.splice(num, 1)
+            break
         }
     }
-
-    document.getElementsByTagName('tr')[id].remove()
-
-    total -= itemArray[id-1].price*itemArray[id-1].quantity
+    
+    
 
     totalEl.innerHTML = `Total: ${total.toLocaleString('en-US', {style: 'currency', currency: 'USD'})}`
 
