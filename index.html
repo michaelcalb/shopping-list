@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Shopping list</h1>
+    <div id="inputs">
+        <div>
+            <label for="item">Item:</label>
+            <input type="text" name="item" id="item" class="input">
+        </div>
+        <div class="priceDisplay">
+            <label>Price:</label>
+            <input type="number" name="price" id="price" class="input priceDisplay" step="any" min="0">
+        </div>
+        <div>
+            <label for="quantity">Quantity:</label>
+            <input type="number" name="quantity" id="quantity" class="input" min="1">
+        </div>
+    </div>
+    <div id="buttons">
+        <input id="addtolist" type="button" value="Add to list" onclick="addToList()">
+        <input id="clearlist" type="button" value="Clear list" onclick="clearList()">
+        <input type="checkbox" name="enablePrice" id="enablePrice" checked onclick="priceDisplay()">
+        <label for="enablePrice">Enable price</label>
+    </div>
+    <div id="listDiv">
+        <table id="list">
+            <tr>
+                <th>Item</th>
+                <th class="priceDisplay">Price</th>
+                <th>Quantity</th>
+                <th class="priceDisplay">Subtotal</th>
+            </tr>
+        </table>
+        <p id="total" class="priceDisplay"></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
