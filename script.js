@@ -114,9 +114,7 @@ function deleteItem(id) {
             
             document.getElementById(id).remove()
             total -= itemArray[num].price*itemArray[num].quantity
-            console.log(itemArray[num])
             itemArray.splice(num, 1)
-            console.log(itemArray)
             break
         }
     }
