@@ -54,7 +54,6 @@ function addToList() {
         name: document.getElementById('item').value,
         quantity: parseInt(document.getElementById('quantity').value),
         price: parseFloat(document.getElementById('price').value),
-        id: id
     }
 
     if (item.name.length == 0 || enablePrice.checked && isNaN(item.price) || isNaN(item.quantity)) {
@@ -79,7 +78,7 @@ function addToList() {
 
     itemArray.push(item)
 
-    listEl.innerHTML += `<tr class="listItem" id="${id}"><td>${item.name}</td><td class="priceDisplay">${item.price.toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</td><td>${item.quantity}</td><td class="priceDisplay">${(item.quantity*item.price).toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</td><td><input type="button" value="Delete" onclick="deleteItem(${id})"></td></tr>`
+    listEl.innerHTML += `<tr class="listItem" id="${id}"><td>${item.name}</td><td class="priceDisplay">${item.price.toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</td><td>${item.quantity}</td><td class="priceDisplay">${(item.quantity*item.price).toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</td><td class="delButtonTableData"><input type="button" value="Delete" class="delButton" onclick="deleteItem(${id})"></td></tr>`
 
     id++
 
@@ -93,8 +92,6 @@ function addToList() {
     resetInputs()
     priceDisplay()
 }
-
-
 
 function clearList() {
 
@@ -111,19 +108,19 @@ function clearList() {
 
 function deleteItem(id) {
 
-    for (num=0; num<itemArray.length; num++) {
+    for (num=0; num<itemArray.length;  num++) {
 
         if (document.getElementById(id).getElementsByTagName('td')[0].textContent == itemArray[num].name) {
             
             document.getElementById(id).remove()
             total -= itemArray[num].price*itemArray[num].quantity
+            console.log(itemArray[num])
             itemArray.splice(num, 1)
+            console.log(itemArray)
             break
         }
     }
     
-    
-
     totalEl.innerHTML = `Total: ${total.toLocaleString('en-US', {style: 'currency', currency: 'USD'})}`
 
     checkTableContent()
